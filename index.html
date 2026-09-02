@@ -20,7 +20,6 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
-      padding-bottom: 180px; /* Ruang ekstra agar bagian bawah kartu tidak tertutup pemutar musik */
     }
     .card {
       width: 100%;
@@ -32,6 +31,7 @@
       margin: 10px;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .header {
       background: var(--navy);
@@ -152,22 +152,38 @@
     .btn:hover { opacity: 0.9; }
     .footer { font-size: 0.8rem; color: #888; padding: 15px; text-align: center; }
 
-    /* Pemutar Musik Apple Music Melayang di Bawah */
-    .music-player-container {
+    /* Tombol Musik Melayang */
+    .music-btn {
       position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 95%;
-      max-width: 450px;
-      z-index: 9999;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      overflow: hidden;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: transform 0.2s;
     }
+    .music-btn:active { transform: scale(0.9); }
+    .spinning { animation: spin 4s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+
+  <audio id="bg-music" loop autoplay preload="auto">
+    <source src="https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn spinning" id="music-control" onclick="toggleMusic()">🎵</button>
 
   <div class="card">
     <div class="header">
@@ -257,10 +273,6 @@
     </div>
   </div>
 
-  <div class="music-player-container">
-    <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/id/song/sabilulungan-feat-ls-kencana-sari/979980038"></iframe>
-  </div>
-
   <script>
     // 1. Membaca Parameter URL "?to=NamaTamu"
     window.addEventListener('DOMContentLoaded', () => {
@@ -307,6 +319,29 @@
         }, 2000);
       });
     }
+
+    // 4. Kontrol Musik (Play / Pause) & Autoplay Handler
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-control');
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicBtn.classList.add('spinning');
+        musicBtn.innerText = '🎵';
+      } else {
+        audio.pause();
+        musicBtn.classList.remove('spinning');
+        musicBtn.innerText = '🔇';
+      }
+    }
+
+    // Pastikan akses file di Google Drive diset "Anyone with the link" / "Siapa saja yang memiliki link"
+    document.body.addEventListener('click', function() {
+      if (audio.paused && musicBtn.innerText === '🎵') {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
