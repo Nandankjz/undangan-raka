@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Tasyakuran Khitanan - Raka</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b2545;
+      --gold: #d4af37;
+      --bg: #f4f7f9;
+      --text: #333333;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      width: 100%;
+      max-width: 450px;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 5px solid var(--gold);
+    }
+    .header h2 { font-size: 1.1rem; font-weight: 300; letter-spacing: 1px; margin-bottom: 5px; }
+    .header h1 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--gold); margin: 10px 0; }
+    .content { padding: 25px 20px; text-align: center; }
+    
+    /* Box Nama Tamu */
+    .guest-box {
+      display: none; /* Otomatis muncul via JS jika ada parameter ?to= */
+      background: #eef2f7;
+      border-left: 4px solid var(--gold);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .event-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+    .event-title { font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .event-detail { font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px; }
+    .timer-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .timer-box {
+      background: var(--navy);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      min-width: 65px;
+    }
+    .timer-box span { display: block; }
+    .num { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+    .label { font-size: 0.7rem; text-transform: uppercase; }
+    
+    /* Amplop Digital */
+    .gift-box {
+      background: #fdfbf7;
+      border: 1px dashed var(--gold);
+      border-radius: 12px;
+      padding: 20px 15px;
+      margin: 20px 0;
+    }
+    .bank-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+    .bank-info strong { display: block; color: var(--navy); font-size: 0.9rem; }
+    .bank-info span { font-size: 1.05rem; font-weight: 700; color: #1a202c; letter-spacing: 0.5px; }
+    .btn-copy {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-copy:active { transform: scale(0.95); }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn-maps { background: var(--navy); color: white; }
+    .btn-wa { background: #25D366; color: white; }
+    .btn:hover { opacity: 0.9; }
+    .footer { font-size: 0.8rem; color: #888; padding: 15px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <h2>TASYAKURAN KHITANAN</h2>
+      <h1>Muhammad Raka Faeyza</h1>
+      <p style="font-size: 0.85rem; margin-top: 5px;">Putra dari Bpk. Nandang & Ibu Novrida Sari</p>
+    </div>
+
+    <div class="content">
+      <!-- Element untuk menampilkan nama tamu -->
+      <div id="guest-box" class="guest-box">
+        Kepada Yth. Bapak/Ibu/Saudara/i:<br>
+        <span id="nama-tamu" style="font-size: 1.1rem; color: var(--gold);"></span>
+      </div>
+
+      <p style="font-size: 0.9rem; line-height: 1.5;">
+        Assalamu’alaikum Wr. Wb.<br>
+        Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara tasyakuran khitanan putra kami.
+      </p>
+
+      <div class="event-box">
+        <div class="event-title">WAKTU & LOKASI</div>
+        <div class="event-detail">
+          <strong>Selasa, 22 September 2026</strong><br>
+          Pukul: 11.00 - 18.00 WIB
+        </div>
+        <div class="event-detail" style="margin-top: 10px;">
+          <strong>Alamat:</strong><br>
+          Kp. Kalibata GG. Mandor Ali RT. 001/RW. 003<br>
+          Kel. Bantarjati, Kec. Kota Bogor Utara
+        </div>
+      </div>
+
+      <!-- Hitung Mundur -->
+      <div class="timer-container">
+        <div class="timer-box"><span class="num" id="days">0</span><span class="label">Hari</span></div>
+        <div class="timer-box"><span class="num" id="hours">0</span><span class="label">Jam</span></div>
+        <div class="timer-box"><span class="num" id="minutes">0</span><span class="label">Menit</span></div>
+        <div class="timer-box"><span class="num" id="seconds">0</span><span class="label">Detik</span></div>
+      </div>
+
+      <!-- Tombol Google Maps Presisi -->
+      <a href="https://www.google.com/maps/search/?api=1&query=-6.578056,106.807111" target="_blank" class="btn btn-maps">
+        📍 Buka Lokasi di Google Maps
+      </a>
+
+      <!-- Amplop Digital -->
+      <div class="gift-box">
+        <div class="event-title" style="margin-bottom: 5px;">AMPLOP DIGITAL</div>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">
+          Bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih untuk Raka, dapat menyalurkannya melalui:
+        </p>
+
+        <!-- BNI -->
+        <div class="bank-card">
+          <div class="bank-info">
+            <strong>Bank BNI</strong>
+            <span id="rekening-bni">2021944010</span>
+          </div>
+          <button class="btn-copy" onclick="copyText('rekening-bni', this)">Salin</button>
+        </div>
+
+        <!-- BCA -->
+        <div class="bank-card">
+          <div class="bank-info">
+            <strong>Bank BCA</strong>
+            <span id="rekening-bca">7175136932</span>
+          </div>
+          <button class="btn-copy" onclick="copyText('rekening-bca', this)">Salin</button>
+        </div>
+
+        <!-- GOPAY -->
+        <div class="bank-card">
+          <div class="bank-info">
+            <strong>GoPay</strong>
+            <span id="rekening-gopay">087870260010</span>
+          </div>
+          <button class="btn-copy" onclick="copyText('rekening-gopay', this)">Salin</button>
+        </div>
+      </div>
+
+      <!-- Tombol Konfirmasi WhatsApp -->
+      <a href="https://wa.me/6287870260010?text=Halo%20Bpk.%20Nandang,%20Saya%20insyaAllah%20hadir%20di%20acara%20khitanan%20Raka." target="_blank" class="btn btn-wa">
+        💬 Konfirmasi Kehadiran via WA
+      </a>
+    </div>
+
+    <div class="footer">
+      Mohon maaf apabila ada kesalahan pada penulisan nama/gelar.<br>
+      <strong>Wassalamu’alaikum Wr. Wb.</strong>
+    </div>
+  </div>
+
+  <script>
+    // 1. Membaca Parameter URL "?to=NamaTamu"
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nama = urlParams.get('to');
+      if (nama) {
+        document.getElementById('nama-tamu').innerText = decodeURIComponent(nama);
+        document.getElementById('guest-box').style.display = 'block';
+      }
+    });
+
+    // 2. Hitung Mundur ke 22 September 2026
+    const targetDate = new Date("Sep 22, 2026 11:00:00").getTime();
+    
+    const timer = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      
+      if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("days").innerText = "0";
+        document.getElementById("hours").innerText = "0";
+        document.getElementById("minutes").innerText = "0";
+        document.getElementById("seconds").innerText = "0";
+        return;
+      }
+      
+      document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+    }, 1000);
+
+    // 3. Fungsi Copy Nomor Rekening
+    function copyText(elementId, btnElement) {
+      const textToCopy = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "Tersalin!";
+        btnElement.style.background = "#25D366";
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.style.background = "var(--navy)";
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
