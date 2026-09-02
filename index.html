@@ -9,6 +9,7 @@
     :root {
       --navy: #0b2545;
       --gold: #d4af37;
+      --gold-light: #f0e6c8;
       --bg: #f4f7f9;
       --text: #333333;
     }
@@ -21,6 +22,109 @@
       justify-content: center;
       min-height: 100vh;
     }
+
+    /* ===== SPLASH / COVER SCREEN ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-decor {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    .splash h2 {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .splash h1 {
+      font-family: 'Amiri', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      margin: 10px 0;
+      line-height: 1.2;
+    }
+    .splash p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    .splash-guest {
+      margin-top: 18px;
+      padding: 10px 20px;
+      background: rgba(212,175,55,0.12);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 8px;
+      display: none;
+    }
+    .splash-guest span {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .splash-guest small {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .btn-open {
+      margin-top: 35px;
+      padding: 14px 50px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse-btn 2s ease-in-out infinite;
+    }
+    .btn-open:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(212,175,55,0.5); }
+    .btn-open:active { transform: scale(0.97); }
+    @keyframes pulse-btn {
+      0%, 100% { box-shadow: 0 4px 20px rgba(212,175,55,0.4); }
+      50% { box-shadow: 0 4px 35px rgba(212,175,55,0.7); }
+    }
+    /* Ornamen pojok splash */
+    .splash-corner {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.3;
+    }
+    .splash-corner.tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+    .splash-corner.tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+    .splash-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+    .splash-corner.br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+    /* ===== KARTU UNDANGAN ===== */
     .card {
       width: 100%;
       max-width: 450px;
@@ -42,8 +146,7 @@
     }
     .header h2 { font-size: 1.1rem; font-weight: 300; letter-spacing: 1px; margin-bottom: 5px; }
     .header h1 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--gold); margin: 10px 0; }
-    
-    /* Bingkai Foto Anak */
+
     .profile-img-container {
       display: flex;
       justify-content: center;
@@ -61,8 +164,7 @@
     }
 
     .content { padding: 15px 20px 25px; text-align: center; }
-    
-    /* Box Nama Tamu */
+
     .guest-box {
       display: none;
       background: #eef2f7;
@@ -84,6 +186,7 @@
     }
     .event-title { font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .event-detail { font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px; }
+
     .timer-container {
       display: flex;
       justify-content: center;
@@ -100,8 +203,7 @@
     .timer-box span { display: block; }
     .num { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
     .label { font-size: 0.7rem; text-transform: uppercase; }
-    
-    /* Amplop Digital */
+
     .gift-box {
       background: #fdfbf7;
       border: 1px dashed var(--gold);
@@ -152,7 +254,6 @@
     .btn:hover { opacity: 0.9; }
     .footer { font-size: 0.8rem; color: #888; padding: 15px; text-align: center; }
 
-    /* Tombol Musik Melayang */
     .music-btn {
       position: fixed;
       bottom: 20px;
@@ -163,7 +264,7 @@
       background: var(--navy);
       color: var(--gold);
       border: 2px solid var(--gold);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
@@ -172,6 +273,7 @@
       z-index: 999;
       transition: transform 0.2s;
     }
+    .music-btn.show { display: flex; }
     .music-btn:active { transform: scale(0.9); }
     .spinning { animation: spin 4s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -179,12 +281,35 @@
 </head>
 <body>
 
-  <audio id="bg-music" loop autoplay preload="auto">
+  <!-- ===== SPLASH SCREEN ===== -->
+  <div class="splash" id="splash">
+    <div class="splash-corner tl"></div>
+    <div class="splash-corner tr"></div>
+    <div class="splash-corner bl"></div>
+    <div class="splash-corner br"></div>
+
+    <h2>Tasyakuran Khitanan</h2>
+    <h1>Muhammad Raka Faeyza</h1>
+    <div class="splash-decor"></div>
+    <p>Putra dari Bpk. Nandang & Ibu Novridasari</p>
+
+    <div class="splash-guest" id="splash-guest">
+      <small>Kepada Yth. Bapak/Ibu/Saudara/i</small>
+      <span id="splash-nama"></span>
+    </div>
+
+    <button class="btn-open" id="btn-open">✉ Buka Undangan</button>
+  </div>
+
+  <!-- ===== AUDIO ===== -->
+  <audio id="bg-music" loop preload="auto">
     <source src="https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u" type="audio/mpeg">
   </audio>
 
+  <!-- ===== TOMBOL MUSIK ===== -->
   <button class="music-btn spinning" id="music-control" onclick="toggleMusic()">🎵</button>
 
+  <!-- ===== KARTU UNDANGAN ===== -->
   <div class="card">
     <div class="header">
       <h2>TASYAKURAN KHITANAN</h2>
@@ -203,7 +328,7 @@
       </div>
 
       <p style="font-size: 0.9rem; line-height: 1.5;">
-        Assalamu’alaikum Wr. Wb.<br>
+        Assalamu'alaikum Wr. Wb.<br>
         Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara tasyakuran khitanan putra kami.
       </p>
 
@@ -269,28 +394,71 @@
 
     <div class="footer">
       Mohon maaf apabila ada kesalahan pada penulisan nama/gelar.<br>
-      <strong>Wassalamu’alaikum Wr. Wb.</strong>
+      <strong>Wassalamu'alaikum Wr. Wb.</strong>
     </div>
   </div>
 
   <script>
-    // 1. Membaca Parameter URL "?to=NamaTamu"
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const nama = urlParams.get('to');
-      if (nama) {
-        document.getElementById('nama-tamu').innerText = decodeURIComponent(nama);
-        document.getElementById('guest-box').style.display = 'block';
-      }
+    // 1. Baca parameter nama tamu dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const namaTamu = urlParams.get('to');
+
+    if (namaTamu) {
+      const decoded = decodeURIComponent(namaTamu);
+      // Tampilkan di splash
+      document.getElementById('splash-nama').innerText = decoded;
+      document.getElementById('splash-guest').style.display = 'block';
+      // Tampilkan di kartu undangan
+      document.getElementById('nama-tamu').innerText = decoded;
+      document.getElementById('guest-box').style.display = 'block';
+    }
+
+    // 2. SPLASH SCREEN — Klik "Buka Undangan" → musik langsung mutar
+    const splash = document.getElementById('splash');
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-control');
+
+    document.getElementById('btn-open').addEventListener('click', function() {
+      // Mainkan musik langsung (ini diizinkan karena ada interaksi klik)
+      audio.play().then(() => {
+        musicBtn.innerText = '🎵';
+        musicBtn.classList.add('spinning');
+      }).catch(() => {
+        // Jika masih gagal (jarang terjadi setelah klik), tampilkan tombol musik saja
+        musicBtn.innerText = '🔇';
+        musicBtn.classList.remove('spinning');
+      });
+
+      // Tampilkan tombol musik
+      musicBtn.classList.add('show');
+
+      // Hilangkan splash screen
+      splash.classList.add('hidden');
+
+      // Hapus splash dari DOM setelah animasi selesai
+      setTimeout(() => { splash.remove(); }, 900);
     });
 
-    // 2. Hitung Mundur ke 22 September 2026
+    // 3. Toggle musik setelah undangan dibuka
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicBtn.innerText = '🎵';
+        musicBtn.classList.add('spinning');
+      } else {
+        audio.pause();
+        musicBtn.innerText = '🔇';
+        musicBtn.classList.remove('spinning');
+      }
+    }
+
+    // 4. Hitung Mundur ke 22 September 2026
     const targetDate = new Date("Sep 22, 2026 11:00:00").getTime();
-    
+
     const timer = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-      
+
       if (distance < 0) {
         clearInterval(timer);
         document.getElementById("days").innerText = "0";
@@ -299,14 +467,14 @@
         document.getElementById("seconds").innerText = "0";
         return;
       }
-      
+
       document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
       document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
     }, 1000);
 
-    // 3. Fungsi Copy Nomor Rekening
+    // 5. Copy nomor rekening
     function copyText(elementId, btnElement) {
       const textToCopy = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(textToCopy).then(() => {
@@ -319,29 +487,6 @@
         }, 2000);
       });
     }
-
-    // 4. Kontrol Musik (Play / Pause) & Autoplay Handler
-    const audio = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-control');
-
-    function toggleMusic() {
-      if (audio.paused) {
-        audio.play();
-        musicBtn.classList.add('spinning');
-        musicBtn.innerText = '🎵';
-      } else {
-        audio.pause();
-        musicBtn.classList.remove('spinning');
-        musicBtn.innerText = '🔇';
-      }
-    }
-
-    // Pastikan akses file di Google Drive diset "Anyone with the link" / "Siapa saja yang memiliki link"
-    document.body.addEventListener('click', function() {
-      if (audio.paused && musicBtn.innerText === '🎵') {
-        audio.play().catch(() => {});
-      }
-    }, { once: true });
   </script>
 </body>
 </html>
