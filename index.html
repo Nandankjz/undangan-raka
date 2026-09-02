@@ -9,7 +9,6 @@
     :root {
       --navy: #0b2545;
       --gold: #d4af37;
-      --gold-light: #f0e6c8;
       --bg: #f4f7f9;
       --text: #333333;
     }
@@ -23,7 +22,7 @@
       min-height: 100vh;
     }
 
-    /* ===== SPLASH / COVER SCREEN ===== */
+    /* ===== SPLASH SCREEN ===== */
     .splash {
       position: fixed;
       inset: 0;
@@ -77,17 +76,8 @@
       border-radius: 8px;
       display: none;
     }
-    .splash-guest span {
-      color: var(--gold);
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-    .splash-guest small {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.75rem;
-      display: block;
-      margin-bottom: 4px;
-    }
+    .splash-guest span { color: var(--gold); font-weight: 600; font-size: 1.05rem; }
+    .splash-guest small { color: rgba(255,255,255,0.5); font-size: 0.75rem; display: block; margin-bottom: 4px; }
     .btn-open {
       margin-top: 35px;
       padding: 14px 50px;
@@ -110,7 +100,6 @@
       0%, 100% { box-shadow: 0 4px 20px rgba(212,175,55,0.4); }
       50% { box-shadow: 0 4px 35px rgba(212,175,55,0.7); }
     }
-    /* Ornamen pojok splash */
     .splash-corner {
       position: absolute;
       width: 60px;
@@ -123,6 +112,31 @@
     .splash-corner.tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
     .splash-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
     .splash-corner.br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+    /* Pesan error audio di splash */
+    .audio-error-toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff3cd;
+      color: #856404;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10000;
+      display: none;
+      max-width: 350px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .audio-error-toast.show { display: block; animation: fadeInUp 0.4s ease; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
 
     /* ===== KARTU UNDANGAN ===== */
     .card {
@@ -287,27 +301,25 @@
     <div class="splash-corner tr"></div>
     <div class="splash-corner bl"></div>
     <div class="splash-corner br"></div>
-
     <h2>Tasyakuran Khitanan</h2>
     <h1>Muhammad Raka Faeyza</h1>
     <div class="splash-decor"></div>
     <p>Putra dari Bpk. Nandang & Ibu Novridasari</p>
-
     <div class="splash-guest" id="splash-guest">
       <small>Kepada Yth. Bapak/Ibu/Saudara/i</small>
       <span id="splash-nama"></span>
     </div>
-
     <button class="btn-open" id="btn-open">✉ Buka Undangan</button>
   </div>
 
+  <!-- Toast error audio -->
+  <div class="audio-error-toast" id="audio-toast"></div>
+
   <!-- ===== AUDIO ===== -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u" type="audio/mpeg">
-  </audio>
+  <audio id="bg-music" loop preload="auto"></audio>
 
   <!-- ===== TOMBOL MUSIK ===== -->
-  <button class="music-btn spinning" id="music-control" onclick="toggleMusic()">🎵</button>
+  <button class="music-btn" id="music-control" onclick="toggleMusic()">🔇</button>
 
   <!-- ===== KARTU UNDANGAN ===== -->
   <div class="card">
@@ -361,7 +373,6 @@
         <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">
           Bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih untuk Raka, dapat menyalurkannya melalui:
         </p>
-
         <div class="bank-card">
           <div class="bank-info">
             <strong>Bank BNI</strong>
@@ -369,7 +380,6 @@
           </div>
           <button class="btn-copy" onclick="copyText('rekening-bni', this)">Salin</button>
         </div>
-
         <div class="bank-card">
           <div class="bank-info">
             <strong>Bank BCA</strong>
@@ -377,7 +387,6 @@
           </div>
           <button class="btn-copy" onclick="copyText('rekening-bca', this)">Salin</button>
         </div>
-
         <div class="bank-card">
           <div class="bank-info">
             <strong>GoPay</strong>
@@ -399,52 +408,108 @@
   </div>
 
   <script>
-    // 1. Baca parameter nama tamu dari URL
+    // ============================================================
+    //  KONFIGURASI AUDIO
+    //  Ganti URL di bawah ini dengan link hosting yang mendukung
+    //  streaming audio (bukan Google Drive langsung).
+    //
+    //  CARA MENDAPATKAN LINK YANG BENAR → lihat di bawah script ini
+    // ============================================================
+    const AUDIO_URL = "https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u";
+
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-control');
+    const splash = document.getElementById('splash');
+    const toast = document.getElementById('audio-toast');
+
+    // Set src audio
+    audio.src = AUDIO_URL;
+
+    // Fungsi tampilkan toast error
+    function showToast(msg, duration) {
+      toast.innerHTML = msg;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, duration || 5000);
+    }
+
+    // Deteksi error saat audio gagal load
+    audio.addEventListener('error', function() {
+      showToast('⚠️ Musik gagal dimuat. Kemungkinan link Google Drive tidak mendukung streaming. Lihat panduan di console (F12).', 7000);
+      console.log(
+        '%c🔧 PANDUAN MEMPERBAIKI AUDIO:',
+        'color: #d4af37; font-size: 14px; font-weight: bold;'
+      );
+      console.log(
+        '%cGoogle Drive TIDAK bisa dipakai untuk streaming audio langsung.\n\n' +
+        'Ganti AUDIO_URL di dalam script dengan salah satu opsi berikut:\n\n' +
+        'OPSI 1 — Dropbox (paling mudah):\n' +
+        '  Upload file MP3 ke dropbox.com\n' +
+        '  Klik "Share" → "Create link"\n' +
+        '  Ganti akhir URL dari "?dl=0" menjadi "?raw=1"\n' +
+        '  Contoh: https://www.dropbox.com/s/xxxxx/lagu.mp3?raw=1\n\n' +
+        'OPSI 2 — GitHub (gratis, file max 25MB):\n' +
+        '  Buat repo → upload file MP3\n' +
+        '  Buka file → klik "Raw" → salin URL-nya\n' +
+        '  Contoh: https://raw.githubusercontent.com/user/repo/main/lagu.mp3\n\n' +
+        'OPSI 3 — Hosting lain yang mendukung direct link audio',
+        'color: #333; font-size: 12px;'
+      );
+    });
+
+    // 1. Baca parameter nama tamu
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
-
     if (namaTamu) {
       const decoded = decodeURIComponent(namaTamu);
-      // Tampilkan di splash
       document.getElementById('splash-nama').innerText = decoded;
       document.getElementById('splash-guest').style.display = 'block';
-      // Tampilkan di kartu undangan
       document.getElementById('nama-tamu').innerText = decoded;
       document.getElementById('guest-box').style.display = 'block';
     }
 
-    // 2. SPLASH SCREEN — Klik "Buka Undangan" → musik langsung mutar
-    const splash = document.getElementById('splash');
-    const audio = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-control');
-
+    // 2. Klik "Buka Undangan" → musik langsung mutar
     document.getElementById('btn-open').addEventListener('click', function() {
-      // Mainkan musik langsung (ini diizinkan karena ada interaksi klik)
-      audio.play().then(() => {
-        musicBtn.innerText = '🎵';
-        musicBtn.classList.add('spinning');
-      }).catch(() => {
-        // Jika masih gagal (jarang terjadi setelah klik), tampilkan tombol musik saja
-        musicBtn.innerText = '🔇';
-        musicBtn.classList.remove('spinning');
-      });
-
-      // Tampilkan tombol musik
+      // Tampilkan tombol musik dulu
       musicBtn.classList.add('show');
 
-      // Hilangkan splash screen
-      splash.classList.add('hidden');
+      // Coba putar audio
+      const playPromise = audio.play();
 
-      // Hapus splash dari DOM setelah animasi selesai
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // Berhasil diputar
+          musicBtn.innerText = '🎵';
+          musicBtn.classList.add('spinning');
+        }).catch(function(err) {
+          // Gagal diputar
+          console.log('Audio play error:', err);
+          musicBtn.innerText = '🔇';
+          musicBtn.classList.remove('spinning');
+
+          if (err.name === 'NotSupportedError') {
+            showToast('⚠️ Format audio tidak didukung atau link tidak valid. Buka console (F12) untuk panduan.', 7000);
+          } else if (err.name === 'AbortError') {
+            showToast('⚠️ Loading audio dibatalkan. Coba tekan tombol musik 🔇 di pojok kanan bawah.', 5000);
+          } else {
+            showToast('⚠️ Musik tidak bisa diputar otomatis. Tekan tombol 🔇 di pojok kanan bawah.', 5000);
+          }
+        });
+      }
+
+      // Hilangkan splash
+      splash.classList.add('hidden');
       setTimeout(() => { splash.remove(); }, 900);
     });
 
-    // 3. Toggle musik setelah undangan dibuka
+    // 3. Toggle musik
     function toggleMusic() {
       if (audio.paused) {
-        audio.play();
-        musicBtn.innerText = '🎵';
-        musicBtn.classList.add('spinning');
+        audio.play().then(() => {
+          musicBtn.innerText = '🎵';
+          musicBtn.classList.add('spinning');
+        }).catch(() => {
+          showToast('⚠️ Audio tidak bisa diputar. Periksa link sumber musik.', 4000);
+        });
       } else {
         audio.pause();
         musicBtn.innerText = '🔇';
@@ -452,13 +517,11 @@
       }
     }
 
-    // 4. Hitung Mundur ke 22 September 2026
+    // 4. Hitung Mundur
     const targetDate = new Date("Sep 22, 2026 11:00:00").getTime();
-
     const timer = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-
       if (distance < 0) {
         clearInterval(timer);
         document.getElementById("days").innerText = "0";
@@ -467,14 +530,13 @@
         document.getElementById("seconds").innerText = "0";
         return;
       }
-
       document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
       document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
     }, 1000);
 
-    // 5. Copy nomor rekening
+    // 5. Copy rekening
     function copyText(elementId, btnElement) {
       const textToCopy = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(textToCopy).then(() => {
