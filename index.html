@@ -31,6 +31,7 @@
       margin: 10px;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .header {
       background: var(--navy);
@@ -150,9 +151,39 @@
     .btn-wa { background: #25D366; color: white; }
     .btn:hover { opacity: 0.9; }
     .footer { font-size: 0.8rem; color: #888; padding: 15px; text-align: center; }
+
+    /* Tombol Musik Melayang */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: transform 0.2s;
+    }
+    .music-btn:active { transform: scale(0.9); }
+    .spinning { animation: spin 4s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="https://open.spotify.com/track/35FQYAruYcdc1w3BlCH5dv?si=XAMLeqEsRs2nNgM1EJY3mg" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn spinning" id="music-control" onclick="toggleMusic()">🎵</button>
 
   <div class="card">
     <div class="header">
@@ -161,13 +192,11 @@
       <p style="font-size: 0.85rem; margin-top: 5px;">Putra dari Bpk. Nandang & Ibu Novridasari</p>
     </div>
 
-    <!-- Elemen Foto Anak dari URL Direct -->
     <div class="profile-img-container">
       <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/hdwM43h8V6EeWHTA8Mxu/pub/6DlMWNKayO8K4MEW0WFN.jpg" alt="Muhammad Raka Faeyza" class="profile-img">
     </div>
 
     <div class="content">
-      <!-- Elemen Nama Tamu -->
       <div id="guest-box" class="guest-box">
         Kepada Yth. Bapak/Ibu/Saudara/i:<br>
         <span id="nama-tamu" style="font-size: 1.1rem; color: var(--gold);"></span>
@@ -191,7 +220,6 @@
         </div>
       </div>
 
-      <!-- Hitung Mundur -->
       <div class="timer-container">
         <div class="timer-box"><span class="num" id="days">0</span><span class="label">Hari</span></div>
         <div class="timer-box"><span class="num" id="hours">0</span><span class="label">Jam</span></div>
@@ -199,19 +227,16 @@
         <div class="timer-box"><span class="num" id="seconds">0</span><span class="label">Detik</span></div>
       </div>
 
-      <!-- Tombol Google Maps Presisi -->
       <a href="https://www.google.com/maps/search/?api=1&query=-6.578056,106.807111" target="_blank" class="btn btn-maps">
         📍 Buka Lokasi di Google Maps
       </a>
 
-      <!-- Amplop Digital -->
       <div class="gift-box">
         <div class="event-title" style="margin-bottom: 5px;">AMPLOP DIGITAL</div>
         <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">
           Bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih untuk Raka, dapat menyalurkannya melalui:
         </p>
 
-        <!-- BNI -->
         <div class="bank-card">
           <div class="bank-info">
             <strong>Bank BNI</strong>
@@ -220,7 +245,6 @@
           <button class="btn-copy" onclick="copyText('rekening-bni', this)">Salin</button>
         </div>
 
-        <!-- BCA -->
         <div class="bank-card">
           <div class="bank-info">
             <strong>Bank BCA</strong>
@@ -229,7 +253,6 @@
           <button class="btn-copy" onclick="copyText('rekening-bca', this)">Salin</button>
         </div>
 
-        <!-- GOPAY -->
         <div class="bank-card">
           <div class="bank-info">
             <strong>GoPay</strong>
@@ -239,7 +262,6 @@
         </div>
       </div>
 
-      <!-- Tombol Konfirmasi WhatsApp -->
       <a href="https://wa.me/6287870260010?text=Halo%20Bpk.%20Nandang,%20Saya%20Insya%20Allah%20hadir%20di%20acara%20khitanan%20Raka." target="_blank" class="btn btn-wa">
         💬 Konfirmasi Kehadiran via WA
       </a>
@@ -297,6 +319,29 @@
         }, 2000);
       });
     }
+
+    // 4. Kontrol Musik (Play / Pause) & Autoplay Handler
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-control');
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicBtn.classList.add('spinning');
+        musicBtn.innerText = '🎵';
+      } else {
+        audio.pause();
+        musicBtn.classList.remove('spinning');
+        musicBtn.innerText = '🔇';
+      }
+    }
+
+    // Penanganan kebijakan autoplay di browser seluler (dimainkan setelah sentuhan pertama)
+    document.body.addEventListener('click', function() {
+      if (audio.paused && musicBtn.innerText === '🎵') {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
