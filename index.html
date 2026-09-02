@@ -110,7 +110,6 @@
       0%, 100% { box-shadow: 0 4px 20px rgba(212,175,55,0.4); }
       50% { box-shadow: 0 4px 35px rgba(212,175,55,0.7); }
     }
-    /* Ornamen pojok splash */
     .splash-corner {
       position: absolute;
       width: 60px;
@@ -277,6 +276,29 @@
     .music-btn:active { transform: scale(0.9); }
     .spinning { animation: spin 4s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* Toast notifikasi */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border-left: 3px solid var(--gold);
+      max-width: 260px;
+    }
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -302,12 +324,13 @@
   </div>
 
   <!-- ===== AUDIO ===== -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u" type="audio/mpeg">
-  </audio>
+  <audio id="bg-music" preload="auto"></audio>
 
   <!-- ===== TOMBOL MUSIK ===== -->
-  <button class="music-btn spinning" id="music-control" onclick="toggleMusic()">🎵</button>
+  <button class="music-btn" id="music-control" onclick="toggleMusic()">🎵</button>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
 
   <!-- ===== KARTU UNDANGAN ===== -->
   <div class="card">
@@ -399,48 +422,125 @@
   </div>
 
   <script>
-    // 1. Baca parameter nama tamu dari URL
+    // =============================================
+    // DAFTAR URL MUSIK — dicoba satu per satu
+    // Sampai ketemu yang berhasil diputar
+    // =============================================
+    const MUSIC_URLS = [
+      // Opsi 1: Format langsung (paling sering gagal tapi paling sederhana)
+      'https://drive.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u',
+      // Opsi 2: Format docs.google.com
+      'https://docs.google.com/uc?export=download&id=1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u',
+      // Opsi 3: Format open (kadang bisa streaming langsung)
+      'https://drive.google.com/file/d/1UsI0NsFHt2TQVnQD16Si1OYJHXi2Yf-u/preview'
+    ];
+
+    let musicLoaded = false;
+
+    // =============================================
+    // FUNGSI TOAST NOTIFIKASI
+    // =============================================
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(() => { toast.classList.remove('visible'); }, duration);
+    }
+
+    // =============================================
+    // FUNGSI COBA PUTAR MUSIK DARI DAFTAR URL
+    // =============================================
+    function tryPlayMusic(audioEl, urlIndex) {
+      return new Promise((resolve, reject) => {
+        if (urlIndex >= MUSIC_URLS.length) {
+          reject('Semua URL gagal');
+          return;
+        }
+
+        const url = MUSIC_URLS[urlIndex];
+        console.log('Mencoba URL musik #' + (urlIndex + 1) + ':', url);
+
+        audioEl.src = url;
+        audioEl.load();
+
+        // Timeout 8 detik — jika belum bisa play, anggap URL ini gagal
+        const timeout = setTimeout(() => {
+          console.warn('Timeout pada URL #' + (urlIndex + 1));
+          audioEl.pause();
+          audioEl.removeAttribute('src');
+          tryPlayMusic(audioEl, urlIndex + 1).then(resolve).catch(reject);
+        }, 8000);
+
+        audioEl.play().then(() => {
+          clearTimeout(timeout);
+          musicLoaded = true;
+          console.log('Musik berhasil diputar dari URL #' + (urlIndex + 1));
+          resolve();
+        }).catch((err) => {
+          clearTimeout(timeout);
+          console.warn('URL #' + (urlIndex + 1) + ' gagal:', err.message);
+          audioEl.pause();
+          audioEl.removeAttribute('src');
+          tryPlayMusic(audioEl, urlIndex + 1).then(resolve).catch(reject);
+        });
+      });
+    }
+
+    // =============================================
+    // 1. BACA PARAMETER NAMA TAMU DARI URL
+    // =============================================
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
 
     if (namaTamu) {
       const decoded = decodeURIComponent(namaTamu);
-      // Tampilkan di splash
       document.getElementById('splash-nama').innerText = decoded;
       document.getElementById('splash-guest').style.display = 'block';
-      // Tampilkan di kartu undangan
       document.getElementById('nama-tamu').innerText = decoded;
       document.getElementById('guest-box').style.display = 'block';
     }
 
-    // 2. SPLASH SCREEN — Klik "Buka Undangan" → musik langsung mutar
+    // =============================================
+    // 2. SPLASH SCREEN — KLIK "BUKA UNDANGAN"
+    // =============================================
     const splash = document.getElementById('splash');
     const audio = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-control');
 
-    document.getElementById('btn-open').addEventListener('click', function() {
-      // Mainkan musik langsung (ini diizinkan karena ada interaksi klik)
-      audio.play().then(() => {
+    document.getElementById('btn-open').addEventListener('click', function () {
+      // Tampilkan tombol musik dulu
+      musicBtn.classList.add('show');
+
+      // Coba putar musik dari daftar URL
+      tryPlayMusic(audio, 0).then(() => {
+        // Berhasil!
         musicBtn.innerText = '🎵';
         musicBtn.classList.add('spinning');
       }).catch(() => {
-        // Jika masih gagal (jarang terjadi setelah klik), tampilkan tombol musik saja
+        // Semua URL gagal — tampilkan pesan
         musicBtn.innerText = '🔇';
         musicBtn.classList.remove('spinning');
+        showToast('⚠️ Musik gagal dimuat. File Google Drive perlu di-host ulang.');
+        console.error(
+          'Musik tidak bisa diputar dari Google Drive.\n' +
+          'Solusi: Upload file .mp3 ke github.com (repo) atau layanan hosting lain,\n' +
+          'lalu ganti URL di variabel MUSIC_URLS.'
+        );
       });
-
-      // Tampilkan tombol musik
-      musicBtn.classList.add('show');
 
       // Hilangkan splash screen
       splash.classList.add('hidden');
-
-      // Hapus splash dari DOM setelah animasi selesai
       setTimeout(() => { splash.remove(); }, 900);
     });
 
-    // 3. Toggle musik setelah undangan dibuka
+    // =============================================
+    // 3. TOGGLE MUSIK
+    // =============================================
     function toggleMusic() {
+      if (!musicLoaded) {
+        showToast('Musik belum berhasil dimuat');
+        return;
+      }
       if (audio.paused) {
         audio.play();
         musicBtn.innerText = '🎵';
@@ -452,10 +552,12 @@
       }
     }
 
-    // 4. Hitung Mundur ke 22 September 2026
+    // =============================================
+    // 4. HITUNG MUNDUR KE 22 SEPTEMBER 2026
+    // =============================================
     const targetDate = new Date("Sep 22, 2026 11:00:00").getTime();
 
-    const timer = setInterval(function() {
+    const timer = setInterval(function () {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
@@ -474,7 +576,9 @@
       document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
     }, 1000);
 
-    // 5. Copy nomor rekening
+    // =============================================
+    // 5. COPY NOMOR REKENING
+    // =============================================
     function copyText(elementId, btnElement) {
       const textToCopy = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(textToCopy).then(() => {
