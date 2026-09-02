@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Tasyakuran Khitanan - Raka</title>
+
+  <!-- ===== FAVICON IKON MASJID ===== -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b2545'/%3E%3Cpath d='M32 8C22 8 15 17 15 25h34c0-8-7-17-17-17z' fill='none' stroke='%23d4af37' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='8' r='2.5' fill='%23d4af37'/%3E%3Crect x='12' y='25' width='40' height='28' rx='2' fill='none' stroke='%23d4af37' stroke-width='2.5'/%3E%3Cpath d='M27 53V42c0-2.8 2.2-5 5-5s5 2.2 5 5v11' fill='none' stroke='%23d4af37' stroke-width='2.5'/%3E%3Crect x='5' y='36' width='7' height='17' rx='1.5' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M5 36l3.5-8L12 36' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Crect x='52' y='36' width='7' height='17' rx='1.5' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M52 36l3.5-8L59 36' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='serif' font-size='6' fill='%23d4af37'%3ER%3C/text%3E%3C/svg%3E">
+
+  <!-- Favicon untuk disimpan di Home Screen HP -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230b2545'/%3E%3Cpath d='M90 22C62 22 42 48 42 70h96c0-22-20-48-48-48z' fill='none' stroke='%23d4af37' stroke-width='5'/%3E%3Ccircle cx='90' cy='22' r='6' fill='%23d4af37'/%3E%3Crect x='34' y='70' width='112' height='78' rx='4' fill='none' stroke='%23d4af37' stroke-width='5'/%3E%3Cpath d='M76 148V118c0-7.7 6.3-14 14-14s14 6.3 14 14v30' fill='none' stroke='%23d4af37' stroke-width='5'/%3E%3Crect x='14' y='100' width='18' height='48' rx='3' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Cpath d='M14 100l9-20 9 20' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Crect x='148' y='100' width='18' height='48' rx='3' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Cpath d='M148 100l9-20 9 20' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Ctext x='90' y='130' text-anchor='middle' font-family='serif' font-size='18' font-weight='bold' fill='%23d4af37'%3ER%3C/text%3E%3C/svg%3E">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -30,7 +37,6 @@
         radial-gradient(circle at 85% 80%, rgba(11,37,69,0.04) 0%, transparent 50%);
     }
 
-    /* ===== SPLASH SCREEN ===== */
     .splash {
       position: fixed;
       inset: 0;
@@ -46,8 +52,6 @@
       overflow: hidden;
     }
     .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-    /* Background pattern splash */
     .splash::before {
       content: '';
       position: absolute;
@@ -57,13 +61,7 @@
         radial-gradient(circle at 80% 70%, rgba(212,175,55,0.06) 0%, transparent 40%);
       pointer-events: none;
     }
-
-    .splash-icon {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 10px;
-      opacity: 0.9;
-    }
+    .splash-icon { width: 70px; height: 70px; margin-bottom: 10px; opacity: 0.9; }
     .splash-bismillah {
       font-family: 'Amiri', serif;
       font-size: 1.1rem;
@@ -85,30 +83,10 @@
       margin: 8px 0;
       line-height: 1.2;
     }
-    .splash-decor {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 12px auto;
-    }
-    .splash-decor .line {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .splash-decor .diamond {
-      width: 8px;
-      height: 8px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
-    .splash p {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.55);
-      max-width: 280px;
-      line-height: 1.6;
-    }
+    .splash-decor { display: flex; align-items: center; gap: 12px; margin: 12px auto; }
+    .splash-decor .line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .splash-decor .diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+    .splash p { font-size: 0.85rem; color: rgba(255,255,255,0.55); max-width: 280px; line-height: 1.6; }
     .splash-guest {
       margin-top: 18px;
       padding: 12px 24px;
@@ -117,19 +95,8 @@
       border-radius: 10px;
       display: none;
     }
-    .splash-guest span {
-      color: var(--gold);
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-    .splash-guest small {
-      color: rgba(255,255,255,0.45);
-      font-size: 0.72rem;
-      display: block;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    .splash-guest span { color: var(--gold); font-weight: 600; font-size: 1.05rem; }
+    .splash-guest small { color: rgba(255,255,255,0.45); font-size: 0.72rem; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
     .btn-open {
       margin-top: 35px;
       padding: 15px 55px;
@@ -155,27 +122,12 @@
       0%, 100% { box-shadow: 0 4px 25px rgba(212,175,55,0.4); }
       50% { box-shadow: 0 4px 40px rgba(212,175,55,0.7); }
     }
-    .splash-corner {
-      position: absolute;
-      width: 70px;
-      height: 70px;
-      border-color: var(--gold);
-      border-style: solid;
-      opacity: 0.25;
-    }
+    .splash-corner { position: absolute; width: 70px; height: 70px; border-color: var(--gold); border-style: solid; opacity: 0.25; }
     .splash-corner.tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
     .splash-corner.tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
     .splash-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
     .splash-corner.br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
-
-    /* Bintang kecil di splash */
-    .splash-star {
-      position: absolute;
-      color: var(--gold);
-      opacity: 0.15;
-      font-size: 10px;
-      animation: twinkle 3s ease-in-out infinite;
-    }
+    .splash-star { position: absolute; color: var(--gold); opacity: 0.15; font-size: 10px; animation: twinkle 3s ease-in-out infinite; }
     .splash-star:nth-child(2) { top: 15%; left: 10%; animation-delay: 0s; }
     .splash-star:nth-child(3) { top: 25%; right: 12%; animation-delay: 0.8s; font-size: 8px; }
     .splash-star:nth-child(4) { bottom: 30%; left: 15%; animation-delay: 1.5s; font-size: 12px; }
@@ -187,7 +139,6 @@
       50% { opacity: 0.35; transform: scale(1.3); }
     }
 
-    /* ===== KARTU UNDANGAN ===== */
     .card {
       width: 100%;
       max-width: 450px;
@@ -200,8 +151,6 @@
       flex-direction: column;
       position: relative;
     }
-
-    /* ===== HEADER ===== */
     .header {
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
       color: #ffffff;
@@ -231,45 +180,13 @@
       border: 1px solid rgba(212,175,55,0.08);
       border-radius: 50%;
     }
-    .header-icon {
-      font-size: 1.5rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-      display: block;
-      filter: drop-shadow(0 2px 4px rgba(212,175,55,0.3));
-    }
-    .header h2 {
-      font-size: 0.85rem;
-      font-weight: 300;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      position: relative;
-    }
-    .header h1 {
-      font-family: 'Amiri', serif;
-      font-size: 2.2rem;
-      color: var(--gold);
-      margin: 8px 0;
-      line-height: 1.2;
-      position: relative;
-      text-shadow: 0 2px 8px rgba(212,175,55,0.2);
-    }
-    .header p {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.5);
-      position: relative;
-    }
+    .header-icon { font-size: 1.5rem; color: var(--gold); margin-bottom: 8px; display: block; filter: drop-shadow(0 2px 4px rgba(212,175,55,0.3)); }
+    .header h2 { font-size: 0.85rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.65); position: relative; }
+    .header h1 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--gold); margin: 8px 0; line-height: 1.2; position: relative; text-shadow: 0 2px 8px rgba(212,175,55,0.2); }
+    .header p { font-size: 0.82rem; color: rgba(255,255,255,0.5); position: relative; }
     .header p i { color: var(--gold); opacity: 0.5; margin: 0 2px; }
 
-    /* ===== PROFILE IMG ===== */
-    .profile-img-container {
-      display: flex;
-      justify-content: center;
-      margin-top: -50px;
-      margin-bottom: 15px;
-      position: relative;
-    }
+    .profile-img-container { display: flex; justify-content: center; margin-top: -50px; margin-bottom: 15px; position: relative; }
     .profile-ring {
       width: 135px;
       height: 135px;
@@ -286,18 +203,9 @@
       75% { background: linear-gradient(270deg, var(--gold), var(--gold-dark), var(--gold-light), var(--gold)); }
       100% { background: linear-gradient(360deg, var(--gold), var(--gold-dark), var(--gold-light), var(--gold)); }
     }
-    .profile-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 3px solid #ffffff;
-      object-fit: cover;
-      background-color: #fff;
-    }
+    .profile-img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #ffffff; object-fit: cover; background-color: #fff; }
 
-    /* ===== CONTENT ===== */
     .content { padding: 10px 22px 25px; text-align: center; }
-
     .guest-box {
       display: none;
       background: linear-gradient(135deg, #eef2f7, #f8fafc);
@@ -309,53 +217,16 @@
       color: var(--navy);
       text-align: left;
     }
-    .guest-box i {
-      color: var(--gold);
-      margin-right: 6px;
-    }
+    .guest-box i { color: var(--gold); margin-right: 6px; }
+    .salam-box { margin-bottom: 5px; }
+    .salam-box .bismillah { font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--gold-dark); margin-bottom: 8px; }
+    .salam-box p { font-size: 0.88rem; line-height: 1.7; color: #555; }
 
-    /* ===== SALAM ===== */
-    .salam-box {
-      margin-bottom: 5px;
-    }
-    .salam-box .bismillah {
-      font-family: 'Amiri', serif;
-      font-size: 1.15rem;
-      color: var(--gold-dark);
-      margin-bottom: 8px;
-    }
-    .salam-box p {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: #555;
-    }
+    .divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px 0; padding: 0 30px; }
+    .divider .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .divider .icon { color: var(--gold); font-size: 0.7rem; opacity: 0.6; }
+    .divider .icon-flower { color: var(--gold); font-size: 1rem; opacity: 0.5; }
 
-    /* ===== DIVIDER ORNAMEN ===== */
-    .divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 20px 0;
-      padding: 0 30px;
-    }
-    .divider .line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .divider .icon {
-      color: var(--gold);
-      font-size: 0.7rem;
-      opacity: 0.6;
-    }
-    .divider .icon-flower {
-      color: var(--gold);
-      font-size: 1rem;
-      opacity: 0.5;
-    }
-
-    /* ===== EVENT BOX ===== */
     .event-box {
       background: linear-gradient(135deg, #f8fafc, #f0f4f8);
       border: 1px solid #e2e8f0;
@@ -367,134 +238,40 @@
     .event-box::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
       border-radius: 14px 14px 0 0;
     }
-    .event-title {
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 14px;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    .event-title { font-weight: 700; color: var(--navy); margin-bottom: 14px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .event-title i { color: var(--gold); font-size: 1rem; }
+    .event-detail { font-size: 0.9rem; line-height: 1.7; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 12px; text-align: left; }
+    .event-detail .icon-wrap { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .event-detail .icon-wrap i { color: var(--gold); font-size: 0.85rem; }
+    .event-detail .detail-text strong { display: block; color: var(--navy); font-size: 0.88rem; }
+    .event-detail .detail-text span { color: #666; font-size: 0.84rem; }
 
-    .event-detail {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      text-align: left;
-    }
-    .event-detail .icon-wrap {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .event-detail .icon-wrap i {
-      color: var(--gold);
-      font-size: 0.85rem;
-    }
-    .event-detail .detail-text strong {
-      display: block;
-      color: var(--navy);
-      font-size: 0.88rem;
-    }
-    .event-detail .detail-text span {
-      color: #666;
-      font-size: 0.84rem;
-    }
-
-    /* ===== TIMER ===== */
-    .timer-label {
-      font-size: 0.78rem;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
+    .timer-label { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .timer-label i { color: var(--gold); font-size: 0.75rem; }
-    .timer-container {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 8px 0 5px;
-    }
-    .timer-box {
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
-      color: white;
-      padding: 12px 8px;
-      border-radius: 10px;
-      min-width: 68px;
-      position: relative;
-      overflow: hidden;
-    }
-    .timer-box::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gold);
-      opacity: 0.5;
-    }
+    .timer-container { display: flex; justify-content: center; gap: 8px; margin: 8px 0 5px; }
+    .timer-box { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; padding: 12px 8px; border-radius: 10px; min-width: 68px; position: relative; overflow: hidden; }
+    .timer-box::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); opacity: 0.5; }
     .timer-box span { display: block; }
     .num { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
     .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-    /* ===== BUTTONS ===== */
     .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-      border: none;
-      transition: all 0.3s;
-      font-family: 'Poppins', sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 13px; margin: 8px 0; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      cursor: pointer; border: none; transition: all 0.3s; font-family: 'Poppins', sans-serif;
     }
-    .btn-maps {
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
-      color: white;
-      box-shadow: 0 4px 12px rgba(11,37,69,0.25);
-    }
+    .btn-maps { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; box-shadow: 0 4px 12px rgba(11,37,69,0.25); }
     .btn-maps:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,37,69,0.35); }
-    .btn-wa {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: white;
-      box-shadow: 0 4px 12px rgba(37,211,102,0.3);
-    }
+    .btn-wa { background: linear-gradient(135deg, #25D366, #128C7E); color: white; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
     .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
     .btn i { font-size: 1rem; }
 
-    /* ===== GIFT BOX ===== */
     .gift-box {
       background: linear-gradient(135deg, #fdfbf7, #faf6ee);
       border: 1.5px dashed var(--gold);
@@ -508,8 +285,7 @@
       font-family: 'Font Awesome 6 Free';
       font-weight: 900;
       position: absolute;
-      top: -14px;
-      left: 50%;
+      top: -14px; left: 50%;
       transform: translateX(-50%);
       background: #fff;
       color: var(--gold);
@@ -518,125 +294,43 @@
       font-size: 0.85rem;
       border: 1.5px dashed var(--gold);
     }
-    .gift-title {
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 5px;
-      margin-top: 5px;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    .gift-title { font-weight: 700; color: var(--navy); margin-bottom: 5px; margin-top: 5px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .gift-title i { color: var(--gold); }
-    .gift-desc {
-      font-size: 0.78rem;
-      color: #777;
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
-    .bank-card {
-      background: #ffffff;
-      border: 1px solid #e8e8e8;
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin: 8px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-align: left;
-      transition: box-shadow 0.2s;
-    }
+    .gift-desc { font-size: 0.78rem; color: #777; margin-bottom: 14px; line-height: 1.5; }
+    .bank-card { background: #ffffff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 12px 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; text-align: left; transition: box-shadow 0.2s; }
     .bank-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
     .bank-info { display: flex; align-items: center; gap: 10px; }
-    .bank-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 0.85rem;
-    }
+    .bank-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem; }
     .bank-icon.bni { background: #f05a22; color: #fff; }
     .bank-icon.bca { background: #003d79; color: #fff; }
     .bank-icon.gopay { background: #00aed6; color: #fff; }
     .bank-info-text strong { display: block; color: var(--navy); font-size: 0.85rem; }
     .bank-info-text span { font-size: 1rem; font-weight: 700; color: #1a202c; letter-spacing: 0.5px; }
-    .btn-copy {
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Poppins', sans-serif;
-    }
+    .btn-copy { background: var(--navy); color: #fff; border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; font-family: 'Poppins', sans-serif; }
     .btn-copy:active { transform: scale(0.95); }
     .btn-copy i { font-size: 0.7rem; }
 
-    /* ===== FOOTER ===== */
-    .footer {
-      font-size: 0.78rem;
-      color: #999;
-      padding: 18px 20px;
-      text-align: center;
-      border-top: 1px solid #f0f0f0;
-      line-height: 1.7;
-    }
+    .footer { font-size: 0.78rem; color: #999; padding: 18px 20px; text-align: center; border-top: 1px solid #f0f0f0; line-height: 1.7; }
     .footer i { color: var(--gold); margin: 0 3px; }
     .footer strong { color: #666; }
 
-    /* ===== MUSIC BUTTON ===== */
     .music-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
-      color: var(--gold);
-      border: 2px solid var(--gold);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      z-index: 999;
-      transition: transform 0.2s;
+      position: fixed; bottom: 20px; right: 20px; width: 48px; height: 48px;
+      border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--gold); border: 2px solid var(--gold); display: none;
+      align-items: center; justify-content: center; font-size: 1.1rem;
+      cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; transition: transform 0.2s;
     }
     .music-btn.show { display: flex; }
     .music-btn:active { transform: scale(0.9); }
     .spinning { animation: spin 3s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* ===== TOAST ===== */
     .toast {
-      position: fixed;
-      bottom: 85px;
-      right: 20px;
-      background: var(--navy);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      z-index: 9999;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-      pointer-events: none;
-      border-left: 3px solid var(--gold);
-      max-width: 280px;
+      position: fixed; bottom: 85px; right: 20px; background: var(--navy); color: #fff;
+      padding: 12px 18px; border-radius: 10px; font-size: 0.8rem; z-index: 9999;
+      opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
+      pointer-events: none; border-left: 3px solid var(--gold); max-width: 280px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
     .toast.visible { opacity: 1; transform: translateY(0); }
@@ -645,7 +339,6 @@
 </head>
 <body>
 
-  <!-- ===== SPLASH SCREEN ===== -->
   <div class="splash" id="splash">
     <div class="splash-corner tl"></div>
     <div class="splash-corner tr"></div>
@@ -658,7 +351,6 @@
     <i class="fa-solid fa-star splash-star"></i>
     <i class="fa-solid fa-star splash-star"></i>
 
-    <!-- Ikon Masjid SVG -->
     <svg class="splash-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M50 5C35 5 25 18 25 30H75C75 18 65 5 50 5Z" fill="none" stroke="#d4af37" stroke-width="2"/>
       <circle cx="50" cy="5" r="3" fill="#d4af37"/>
@@ -690,16 +382,10 @@
     </button>
   </div>
 
-  <!-- ===== AUDIO ===== -->
   <audio id="bg-music" preload="auto"></audio>
-
-  <!-- ===== MUSIC BUTTON ===== -->
   <button class="music-btn" id="music-control" onclick="toggleMusic()"><i class="fa-solid fa-music"></i></button>
-
-  <!-- ===== TOAST ===== -->
   <div class="toast" id="toast"></div>
 
-  <!-- ===== KARTU UNDANGAN ===== -->
   <div class="card">
     <div class="header">
       <span class="header-icon"><i class="fa-solid fa-mosque"></i></span>
@@ -715,21 +401,18 @@
     </div>
 
     <div class="content">
-      <!-- Nama Tamu -->
       <div id="guest-box" class="guest-box">
         <i class="fa-solid fa-user-check"></i>
         Kepada Yth. Bapak/Ibu/Saudara/i:<br>
         <span id="nama-tamu" style="font-size: 1.05rem; color: var(--gold);"></span>
       </div>
 
-      <!-- Salam -->
       <div class="salam-box">
         <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
         <p>Assalamu'alaikum Wr. Wb.<br>
         Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara tasyakuran khitanan putra kami.</p>
       </div>
 
-      <!-- Divider -->
       <div class="divider">
         <div class="line"></div>
         <span class="icon"><i class="fa-solid fa-diamond"></i></span>
@@ -738,47 +421,23 @@
         <div class="line"></div>
       </div>
 
-      <!-- Event Box -->
       <div class="event-box">
-        <div class="event-title">
-          <i class="fa-solid fa-calendar-check"></i> Waktu & Lokasi
-        </div>
-
+        <div class="event-title"><i class="fa-solid fa-calendar-check"></i> Waktu & Lokasi</div>
         <div class="event-detail">
-          <div class="icon-wrap">
-            <i class="fa-solid fa-calendar-days"></i>
-          </div>
-          <div class="detail-text">
-            <strong>Selasa, 22 September 2026</strong>
-            <span>Syawal 1447 H</span>
-          </div>
+          <div class="icon-wrap"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="detail-text"><strong>Selasa, 22 September 2026</strong><span>Syawal 1447 H</span></div>
         </div>
-
         <div class="event-detail">
-          <div class="icon-wrap">
-            <i class="fa-regular fa-clock"></i>
-          </div>
-          <div class="detail-text">
-            <strong>Pukul 11.00 - 18.00 WIB</strong>
-            <span>Acara dimulai tepat waktu</span>
-          </div>
+          <div class="icon-wrap"><i class="fa-regular fa-clock"></i></div>
+          <div class="detail-text"><strong>Pukul 11.00 - 18.00 WIB</strong><span>Acara dimulai tepat waktu</span></div>
         </div>
-
         <div class="event-detail">
-          <div class="icon-wrap">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <div class="detail-text">
-            <strong>Kp. Kalibata GG. Mandor Ali</strong>
-            <span>RT. 001/RW. 003, Kel. Bantarjati<br>Kec. Kota Bogor Utara</span>
-          </div>
+          <div class="icon-wrap"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="detail-text"><strong>Kp. Kalibata GG. Mandor Ali</strong><span>RT. 001/RW. 003, Kel. Bantarjati<br>Kec. Kota Bogor Utara</span></div>
         </div>
       </div>
 
-      <!-- Timer -->
-      <div class="timer-label">
-        <i class="fa-solid fa-hourglass-half"></i> Menghitung Hari
-      </div>
+      <div class="timer-label"><i class="fa-solid fa-hourglass-half"></i> Menghitung Hari</div>
       <div class="timer-container">
         <div class="timer-box"><span class="num" id="days">0</span><span class="label">Hari</span></div>
         <div class="timer-box"><span class="num" id="hours">0</span><span class="label">Jam</span></div>
@@ -786,67 +445,48 @@
         <div class="timer-box"><span class="num" id="seconds">0</span><span class="label">Detik</span></div>
       </div>
 
-      <!-- Divider -->
       <div class="divider">
         <div class="line"></div>
         <span class="icon"><i class="fa-solid fa-diamond"></i></span>
         <div class="line"></div>
       </div>
 
-      <!-- Tombol Maps -->
       <a href="https://www.google.com/maps/search/?api=1&query=-6.578056,106.807111" target="_blank" class="btn btn-maps">
         <i class="fa-solid fa-map-location-dot"></i> Buka Lokasi di Google Maps
       </a>
 
-      <!-- Divider -->
       <div class="divider">
         <div class="line"></div>
         <span class="icon-flower"><i class="fa-solid fa-gift"></i></span>
         <div class="line"></div>
       </div>
 
-      <!-- Gift Box -->
       <div class="gift-box">
-        <div class="gift-title">
-          <i class="fa-solid fa-hand-holding-heart"></i> Amplop Digital
-        </div>
+        <div class="gift-title"><i class="fa-solid fa-hand-holding-heart"></i> Amplop Digital</div>
         <p class="gift-desc">Bagi yang ingin memberikan tanda kasih untuk Raka, dapat menyalurkannya melalui:</p>
-
         <div class="bank-card">
           <div class="bank-info">
             <div class="bank-icon bni"><i class="fa-solid fa-building-columns"></i></div>
-            <div class="bank-info-text">
-              <strong>Bank BNI</strong>
-              <span id="rekening-bni">2021944010</span>
-            </div>
+            <div class="bank-info-text"><strong>Bank BNI</strong><span id="rekening-bni">2021944010</span></div>
           </div>
           <button class="btn-copy" onclick="copyText('rekening-bni', this)"><i class="fa-regular fa-copy"></i> Salin</button>
         </div>
-
         <div class="bank-card">
           <div class="bank-info">
             <div class="bank-icon bca"><i class="fa-solid fa-building-columns"></i></div>
-            <div class="bank-info-text">
-              <strong>Bank BCA</strong>
-              <span id="rekening-bca">7175136932</span>
-            </div>
+            <div class="bank-info-text"><strong>Bank BCA</strong><span id="rekening-bca">7175136932</span></div>
           </div>
           <button class="btn-copy" onclick="copyText('rekening-bca', this)"><i class="fa-regular fa-copy"></i> Salin</button>
         </div>
-
         <div class="bank-card">
           <div class="bank-info">
             <div class="bank-icon gopay"><i class="fa-solid fa-wallet"></i></div>
-            <div class="bank-info-text">
-              <strong>GoPay</strong>
-              <span id="rekening-gopay">087870260010</span>
-            </div>
+            <div class="bank-info-text"><strong>GoPay</strong><span id="rekening-gopay">087870260010</span></div>
           </div>
           <button class="btn-copy" onclick="copyText('rekening-gopay', this)"><i class="fa-regular fa-copy"></i> Salin</button>
         </div>
       </div>
 
-      <!-- Tombol WA -->
       <a href="https://wa.me/6287870260010?text=Halo%20Bpk.%20Nandang,%20Saya%20Insya%20Allah%20hadir%20di%20acara%20khitanan%20Raka." target="_blank" class="btn btn-wa">
         <i class="fa-brands fa-whatsapp"></i> Konfirmasi Kehadiran via WA
       </a>
@@ -861,11 +501,9 @@
   </div>
 
   <script>
-    // URL Musik
     var MUSIC_URLS = [
       'https://pdftourl.net/audio/1788328564339-d025192e-b64c-4808-bac7-9e5e142dd983.mp3'
     ];
-
     var musicLoaded = false;
 
     function showToast(message, duration) {
@@ -878,32 +516,23 @@
 
     function tryPlayMusic(audioEl, urlIndex) {
       return new Promise(function (resolve, reject) {
-        if (urlIndex >= MUSIC_URLS.length) {
-          reject('Semua URL gagal');
-          return;
-        }
+        if (urlIndex >= MUSIC_URLS.length) { reject('Semua URL gagal'); return; }
         var url = MUSIC_URLS[urlIndex];
         audioEl.src = url;
         audioEl.load();
         var timeout = setTimeout(function () {
-          audioEl.pause();
-          audioEl.removeAttribute('src');
+          audioEl.pause(); audioEl.removeAttribute('src');
           tryPlayMusic(audioEl, urlIndex + 1).then(resolve).catch(reject);
         }, 8000);
         audioEl.play().then(function () {
-          clearTimeout(timeout);
-          musicLoaded = true;
-          resolve();
+          clearTimeout(timeout); musicLoaded = true; resolve();
         }).catch(function () {
-          clearTimeout(timeout);
-          audioEl.pause();
-          audioEl.removeAttribute('src');
+          clearTimeout(timeout); audioEl.pause(); audioEl.removeAttribute('src');
           tryPlayMusic(audioEl, urlIndex + 1).then(resolve).catch(reject);
         });
       });
     }
 
-    // Baca nama tamu
     var urlParams = new URLSearchParams(window.location.search);
     var namaTamu = urlParams.get('to');
     if (namaTamu) {
@@ -914,7 +543,6 @@
       document.getElementById('guest-box').style.display = 'block';
     }
 
-    // Splash Screen
     var splash = document.getElementById('splash');
     var audio = document.getElementById('bg-music');
     var musicBtn = document.getElementById('music-control');
@@ -934,10 +562,7 @@
     });
 
     function toggleMusic() {
-      if (!musicLoaded) {
-        showToast('Musik belum berhasil dimuat');
-        return;
-      }
+      if (!musicLoaded) { showToast('Musik belum berhasil dimuat'); return; }
       if (audio.paused) {
         audio.play();
         musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
@@ -949,7 +574,6 @@
       }
     }
 
-    // Hitung mundur
     var targetDate = new Date("Sep 22, 2026 11:00:00").getTime();
     var timer = setInterval(function () {
       var now = new Date().getTime();
@@ -968,7 +592,6 @@
       document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
     }, 1000);
 
-    // Copy rekening
     function copyText(elementId, btnElement) {
       var textToCopy = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(textToCopy).then(function () {
