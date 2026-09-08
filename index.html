@@ -366,6 +366,7 @@
     .comment-item .c-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.62rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: auto; flex-shrink: 0; }
     .c-badge.hadir { background: #e7f8ef; color: #1a9e54; }
     .c-badge.berhalangan { background: #fdeaea; color: #c0392b; }
+    .c-badge.custom { background: #fdf6e3; color: #b8962e; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .comment-item .c-text { font-size: 0.82rem; color: #555; line-height: 1.6; word-wrap: break-word; white-space: pre-wrap; }
     .comment-empty { text-align: center; color: #999; font-size: 0.78rem; padding: 20px 10px; }
     .comment-empty i { display: block; font-size: 1.4rem; color: var(--gold); opacity: .4; margin-bottom: 8px; }
@@ -590,7 +591,7 @@
               <br><br>
               <em>Semoga silaturahmi ini menjadi berkah dan mendatangkan kebaikan bagi kita semua.</em>
               <br><br>
-              <strong style="font-size:0.82rem;">— Keluarga Bpk. Nandang</strong>
+              <strong style="font-size:0.82rem;">— Keluarga Bpk. Nandang & Ibu Novridasari</strong>
             </div>
           </div>
         </div>
@@ -614,7 +615,9 @@
           <select id="commentAttendance">
             <option value="hadir">Insya Allah Hadir</option>
             <option value="berhalangan">Mohon Maaf, Berhalangan</option>
+            <option value="lainnya">Lainnya (tulis sendiri)</option>
           </select>
+          <input type="text" id="attendanceCustom" placeholder="Tulis pilihan Anda" maxlength="25" style="display:none;">
           <textarea id="commentMessage" placeholder="Tulis ucapan & doa terbaik Anda untuk Raka..." maxlength="500" required></textarea>
           <button type="submit" class="btn btn-comment" id="btn-comment">
             <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
@@ -677,7 +680,7 @@
     // ===== NAMA TAMU =====
     var urlParams = new URLSearchParams(window.location.search);
     var namaTamu = urlParams.get('to');
-    if (namaTamu) {
+    if (namaTamu && namaTamu !== 'undefined' && namaTamu.trim() !== '') {
       var decoded = decodeURIComponent(namaTamu);
       document.getElementById('splash-nama').innerText = decoded;
       document.getElementById('splash-guest').style.display = 'block';
@@ -839,7 +842,7 @@
     var FIREBASE_CONFIG = {
       apiKey: "AIzaSyABJy_Ot8TYQUTX_79h2EWwjcL8_lLRRw0",
       authDomain: "komentar-d444e.firebaseapp.com",
-      databaseURL: "https://komentar-d444e-default-rtdb.asia-southeast1.firebasedatabase.app",   // ⬅️ CEK INI: ganti jika URL di Firebase berbeda
+      databaseURL: "https://komentar-d444e-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "komentar-d444e",
       storageBucket: "komentar-d444e.firebasestorage.app",
       messagingSenderId: "208911159851",
@@ -882,15 +885,21 @@
 
     function renderComment(data, prepend) {
       if (!data || !data.name || !data.message) return;
+      if (String(data.name).trim().toLowerCase() === 'undefined' || String(data.message).trim().toLowerCase() === 'undefined') return;
       commentCount++;
       commentTotalEl.innerText = commentCount;
       commentEmptyEl.style.display = 'none';
 
       var item = document.createElement('div');
       item.className = 'comment-item';
-      var badge = (data.attendance === 'berhalangan')
-        ? '<span class="c-badge berhalangan"><i class="fa-solid fa-circle-xmark"></i> Berhalangan</span>'
-        : '<span class="c-badge hadir"><i class="fa-solid fa-circle-check"></i> Hadir</span>';
+      var badge;
+      if (data.attendance === 'berhalangan') {
+        badge = '<span class="c-badge berhalangan"><i class="fa-solid fa-circle-xmark"></i> Berhalangan</span>';
+      } else if (data.attendance === 'hadir') {
+        badge = '<span class="c-badge hadir"><i class="fa-solid fa-circle-check"></i> Hadir</span>';
+      } else {
+        badge = '<span class="c-badge custom"><i class="fa-solid fa-pen"></i> ' + escapeHTML(String(data.attendance || 'Lainnya')) + '</span>';
+      }
       item.innerHTML =
         '<div class="c-head">' +
           '<div class="c-avatar">' + escapeHTML(initials(data.name)) + '</div>' +
@@ -932,10 +941,21 @@
       var msg  = msgEl.value.trim().slice(0, 500);
       if (!name || !msg) return;
 
+      var attendance = attEl.value;
+      var customEl = document.getElementById('attendanceCustom');
+      if (attendance === 'lainnya') {
+        var customText = customEl.value.trim().slice(0, 25);
+        if (!customText) {
+          showToast('Tulis dulu pilihan Anda di kolom Lainnya');
+          return;
+        }
+        attendance = customText;
+      }
+
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
 
-      var data = { name: name, message: msg, attendance: attEl.value, time: Date.now() };
+      var data = { name: name, message: msg, attendance: attendance, time: Date.now() };
 
       function finish(ok) {
         btn.disabled = false;
@@ -961,7 +981,20 @@
 
     // Isi otomatis nama tamu dari link undangan (?to=Nama%20Tamu)
     var prefill = new URLSearchParams(window.location.search).get('to');
-    if (prefill) document.getElementById('commentName').value = decodeURIComponent(prefill);
+    if (prefill && prefill !== 'undefined' && prefill.trim() !== '') {
+      document.getElementById('commentName').value = decodeURIComponent(prefill);
+    }
+
+    // Tampilkan/sembunyikan kolom isian "Lainnya"
+    document.getElementById('commentAttendance').addEventListener('change', function () {
+      var customEl = document.getElementById('attendanceCustom');
+      if (this.value === 'lainnya') {
+        customEl.style.display = 'block';
+        customEl.focus();
+      } else {
+        customEl.style.display = 'none';
+      }
+    });
   </script>
 </body>
-  </html>
+</html>
