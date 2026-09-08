@@ -111,7 +111,7 @@
     .header p { font-size: 0.82rem; color: rgba(255,255,255,0.5); position: relative; }
     .header p i { color: var(--gold); opacity: 0.5; margin: 0 2px; }
 
-    /* ===== FOTO PROFIL — DIPERBAIKI ===== */
+    /* ===== FOTO PROFIL ===== */
     .profile-img-container {
       display: flex;
       justify-content: center;
@@ -336,35 +336,39 @@
     .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
     .btn i { font-size: 1rem; }
 
-    .gift-box {
-      background: linear-gradient(135deg, #fdfbf7, #faf6ee);
-      border: 1.5px dashed var(--gold);
-      border-radius: 14px;
-      padding: 22px 16px;
-      margin: 5px 0;
-      position: relative;
+    /* ===== UCAPAN & DOA ===== */
+    .comment-section { margin: 5px 0; }
+    .comment-title { font-weight: 700; color: var(--navy); margin-bottom: 14px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .comment-title i { color: var(--gold); font-size: 1rem; }
+    .comment-form { background: linear-gradient(135deg, #f8fafc, #f0f4f8); border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px 16px; margin-bottom: 14px; text-align: left; }
+    .comment-form input, .comment-form select, .comment-form textarea {
+      width: 100%; padding: 11px 14px; border: 1px solid #dde3ea; border-radius: 10px;
+      font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: var(--text);
+      margin-bottom: 10px; background: #fff; transition: border-color .2s, box-shadow .2s;
     }
-    .gift-box::after {
-      content: '\f06b'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: #fff; color: var(--gold); padding: 4px 14px; border-radius: 20px;
-      font-size: 0.85rem; border: 1.5px dashed var(--gold);
+    .comment-form textarea { resize: vertical; min-height: 80px; }
+    .comment-form input:focus, .comment-form select:focus, .comment-form textarea:focus {
+      outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,.15);
     }
-    .gift-title { font-weight: 700; color: var(--navy); margin-bottom: 5px; margin-top: 5px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .gift-title i { color: var(--gold); }
-    .gift-desc { font-size: 0.78rem; color: #777; margin-bottom: 14px; line-height: 1.5; }
-    .bank-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 12px 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; text-align: left; transition: box-shadow 0.2s; }
-    .bank-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
-    .bank-info { display: flex; align-items: center; gap: 10px; }
-    .bank-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem; }
-    .bank-icon.bni { background: #f05a22; color: #fff; }
-    .bank-icon.bca { background: #003d79; color: #fff; }
-    .bank-icon.gopay { background: #00aed6; color: #fff; }
-    .bank-info-text strong { display: block; color: var(--navy); font-size: 0.85rem; }
-    .bank-info-text span { font-size: 1rem; font-weight: 700; color: #1a202c; letter-spacing: 0.5px; }
-    .btn-copy { background: var(--navy); color: #fff; border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; font-family: 'Poppins', sans-serif; }
-    .btn-copy:active { transform: scale(0.95); }
-    .btn-copy i { font-size: 0.7rem; }
+    .btn-comment { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); box-shadow: 0 4px 12px rgba(212,175,55,.3); }
+    .btn-comment:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,175,55,.4); }
+    .comment-count { font-size: 0.75rem; color: #888; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .comment-list { max-height: 320px; overflow-y: auto; padding-right: 4px; }
+    .comment-list::-webkit-scrollbar { width: 5px; }
+    .comment-list::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+    .comment-list::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+    .comment-item { background: #fff; border: 1px solid #eceff3; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; text-align: left; animation: comment-in .4s ease; }
+    @keyframes comment-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .comment-item .c-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .comment-item .c-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.78rem; flex-shrink: 0; }
+    .comment-item .c-name { font-weight: 600; color: var(--navy); font-size: 0.85rem; }
+    .comment-item .c-time { font-size: 0.65rem; color: #999; }
+    .comment-item .c-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.62rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: auto; flex-shrink: 0; }
+    .c-badge.hadir { background: #e7f8ef; color: #1a9e54; }
+    .c-badge.berhalangan { background: #fdeaea; color: #c0392b; }
+    .comment-item .c-text { font-size: 0.82rem; color: #555; line-height: 1.6; word-wrap: break-word; white-space: pre-wrap; }
+    .comment-empty { text-align: center; color: #999; font-size: 0.78rem; padding: 20px 10px; }
+    .comment-empty i { display: block; font-size: 1.4rem; color: var(--gold); opacity: .4; margin-bottom: 8px; }
 
     .footer { font-size: 0.78rem; color: #999; padding: 18px 20px; text-align: center; border-top: 1px solid #f0f0f0; line-height: 1.7; }
     .footer i { color: var(--gold); margin: 0 3px; }
@@ -474,12 +478,63 @@
       <div class="divider">
         <div class="line"></div>
         <span class="icon"><i class="fa-solid fa-diamond"></i></span>
+        <div class="line"></div>
+      </div>
+
+      <!-- EVENT -->
+      <div class="event-box">
+        <div class="event-title"><i class="fa-solid fa-calendar-check"></i> Waktu & Lokasi</div>
+        <div class="event-detail">
+          <div class="icon-wrap"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="detail-text"><strong>Selasa, 22 September 2026</strong><span>Syawal 1447 H</span></div>
+        </div>
+        <div class="event-detail">
+          <div class="icon-wrap"><i class="fa-regular fa-clock"></i></div>
+          <div class="detail-text"><strong>Pukul 11.00 - 18.00 WIB</strong><span>Acara dimulai tepat waktu</span></div>
+        </div>
+        <div class="event-detail">
+          <div class="icon-wrap"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="detail-text"><strong>Kp. Kalibata GG. Mandor Ali</strong><span>RT. 001/RW. 003, Kel. Bantarjati<br>Kec. Kota Bogor Utara</span></div>
+        </div>
+      </div>
+
+      <div class="timer-label"><i class="fa-solid fa-hourglass-half"></i> Menghitung Hari</div>
+      <div class="timer-container">
+        <div class="timer-box"><span class="num" id="days">0</span><span class="label">Hari</span></div>
+        <div class="timer-box"><span class="num" id="hours">0</span><span class="label">Jam</span></div>
+        <div class="timer-box"><span class="num" id="minutes">0</span><span class="label">Menit</span></div>
+        <div class="timer-box"><span class="num" id="seconds">0</span><span class="label">Detik</span></div>
+      </div>
+
+      <div class="divider">
+        <div class="line"></div>
+        <span class="icon"><i class="fa-solid fa-diamond"></i></span>
+        <div class="line"></div>
+      </div>
+
+      <a href="https://www.google.com/maps/search/?api=1&query=-6.578056,106.807111" target="_blank" class="btn btn-maps">
+        <i class="fa-solid fa-map-location-dot"></i> Buka Lokasi di Google Maps
+      </a>
+
+      <div class="divider">
+        <div class="line"></div>
+        <span class="icon-flower"><i class="fa-solid fa-gift"></i></span>
+        <div class="line"></div>
+      </div>
+
+      <a href="https://wa.me/6287870260010?text=Halo%20Bpk.%20Nandang,%20Saya%20Insya%20Allah%20hadir%20di%20acara%20khitanan%20Raka." target="_blank" class="btn btn-wa">
+        <i class="fa-brands fa-whatsapp"></i> Konfirmasi Kehadiran via WA
+      </a>
+
+      <!-- ===== TEXT SLIDER AYAT (DI ATAS UCAPAN) ===== -->
+      <div class="divider">
+        <div class="line"></div>
+        <span class="icon"><i class="fa-solid fa-diamond"></i></span>
         <span class="icon-flower"><i class="fa-solid fa-star-and-crescent"></i></span>
         <span class="icon"><i class="fa-solid fa-diamond"></i></span>
         <div class="line"></div>
       </div>
 
-      <!-- ===== TEXT SLIDER ===== -->
       <div class="slider-section" id="slider">
         <button class="slider-arrow prev" onclick="slideMove(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="slider-arrow next" onclick="slideMove(1)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -544,56 +599,40 @@
       <div class="slider-dots" id="sliderDots"></div>
       <div class="swipe-hint"><i class="fa-solid fa-hand-point-up" style="margin-right:4px;"></i> Geser untuk melihat teks lainnya</div>
 
+      <!-- ===== UCAPAN & DOA ===== -->
       <div class="divider">
         <div class="line"></div>
-        <span class="icon"><i class="fa-solid fa-diamond"></i></span>
+        <span class="icon-flower"><i class="fa-solid fa-comments"></i></span>
         <div class="line"></div>
       </div>
 
-      <!-- EVENT -->
-      <div class="event-box">
-        <div class="event-title"><i class="fa-solid fa-calendar-check"></i> Waktu & Lokasi</div>
-        <div class="event-detail">
-          <div class="icon-wrap"><i class="fa-solid fa-calendar-days"></i></div>
-          <div class="detail-text"><strong>Selasa, 22 September 2026</strong><span>Syawal 1447 H</span></div>
+      <div class="comment-section">
+        <div class="comment-title"><i class="fa-solid fa-comments"></i> Ucapan & Doa</div>
+
+        <form class="comment-form" id="commentForm">
+          <input type="text" id="commentName" placeholder="Nama Anda" maxlength="50" required>
+          <select id="commentAttendance">
+            <option value="hadir">Insya Allah Hadir</option>
+            <option value="berhalangan">Mohon Maaf, Berhalangan</option>
+          </select>
+          <textarea id="commentMessage" placeholder="Tulis ucapan & doa terbaik Anda untuk Raka..." maxlength="500" required></textarea>
+          <button type="submit" class="btn btn-comment" id="btn-comment">
+            <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
+          </button>
+        </form>
+
+        <div class="comment-count">
+          <i class="fa-solid fa-heart" style="color:var(--gold);"></i>
+          <span id="commentTotal">0</span> ucapan & doa
         </div>
-        <div class="event-detail">
-          <div class="icon-wrap"><i class="fa-regular fa-clock"></i></div>
-          <div class="detail-text"><strong>Pukul 11.00 - 18.00 WIB</strong><span>Acara dimulai tepat waktu</span></div>
+
+        <div class="comment-list" id="commentList">
+          <div class="comment-empty" id="commentEmpty">
+            <i class="fa-regular fa-comment-dots"></i>
+            Belum ada ucapan. Jadilah yang pertama mengirim doa!
+          </div>
         </div>
-        <div class="event-detail">
-          <div class="icon-wrap"><i class="fa-solid fa-location-dot"></i></div>
-          <div class="detail-text"><strong>Kp. Kalibata GG. Mandor Ali</strong><span>RT. 001/RW. 003, Kel. Bantarjati<br>Kec. Kota Bogor Utara</span></div>
-        </div>
       </div>
-
-      <div class="timer-label"><i class="fa-solid fa-hourglass-half"></i> Menghitung Hari</div>
-      <div class="timer-container">
-        <div class="timer-box"><span class="num" id="days">0</span><span class="label">Hari</span></div>
-        <div class="timer-box"><span class="num" id="hours">0</span><span class="label">Jam</span></div>
-        <div class="timer-box"><span class="num" id="minutes">0</span><span class="label">Menit</span></div>
-        <div class="timer-box"><span class="num" id="seconds">0</span><span class="label">Detik</span></div>
-      </div>
-
-      <div class="divider">
-        <div class="line"></div>
-        <span class="icon"><i class="fa-solid fa-diamond"></i></span>
-        <div class="line"></div>
-      </div>
-
-      <a href="https://www.google.com/maps/search/?api=1&query=-6.578056,106.807111" target="_blank" class="btn btn-maps">
-        <i class="fa-solid fa-map-location-dot"></i> Buka Lokasi di Google Maps
-      </a>
-
-      <div class="divider">
-        <div class="line"></div>
-        <span class="icon-flower"><i class="fa-solid fa-gift"></i></span>
-        <div class="line"></div>
-      </div>
-
-      <a href="https://wa.me/6287870260010?text=Halo%20Bpk.%20Nandang,%20Saya%20Insya%20Allah%20hadir%20di%20acara%20khitanan%20Raka." target="_blank" class="btn btn-wa">
-        <i class="fa-brands fa-whatsapp"></i> Konfirmasi Kehadiran via WA
-      </a>
     </div>
 
     <div class="footer">
@@ -792,5 +831,137 @@
       });
     }
   </script>
+
+  <!-- ===== UCAPAN & DOA - FIREBASE (CONFIG SUDAH DIISI) ===== -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script>
+    var FIREBASE_CONFIG = {
+      apiKey: "AIzaSyABJy_Ot8TYQUTX_79h2EWwjcL8_lLRRw0",
+      authDomain: "komentar-d444e.firebaseapp.com",
+      databaseURL: "https://komentar-d444e-default-rtdb.asia-southeast1.firebasedatabase.app",   // ⬅️ CEK INI: ganti jika URL di Firebase berbeda
+      projectId: "komentar-d444e",
+      storageBucket: "komentar-d444e.firebasestorage.app",
+      messagingSenderId: "208911159851",
+      appId: "1:208911159851:web:aa241697a7c3f241bb106e"
+    };
+
+    var commentsDB = null;
+    var LOCAL_MODE = true; // true = ucapan hanya tersimpan di perangkat sendiri (mode preview)
+
+    try {
+      if (FIREBASE_CONFIG.apiKey.indexOf('GANTI') === -1) {
+        firebase.initializeApp(FIREBASE_CONFIG);
+        commentsDB = firebase.database();
+        LOCAL_MODE = false;
+      } else {
+        console.warn('Firebase belum dikonfigurasi - ucapan hanya tersimpan lokal (preview).');
+      }
+    } catch (e) { console.warn('Firebase gagal dimuat:', e); }
+
+    var commentListEl = document.getElementById('commentList');
+    var commentEmptyEl = document.getElementById('commentEmpty');
+    var commentTotalEl = document.getElementById('commentTotal');
+    var commentCount = 0;
+
+    function escapeHTML(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+    function timeAgo(ts) {
+      var d = Math.floor((Date.now() - ts) / 1000);
+      if (d < 60) return 'Baru saja';
+      if (d < 3600) return Math.floor(d/60) + ' menit lalu';
+      if (d < 86400) return Math.floor(d/3600) + ' jam lalu';
+      if (d < 604800) return Math.floor(d/86400) + ' hari lalu';
+      return new Date(ts).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+    }
+    function initials(n) {
+      var p = String(n || '?').trim().split(/\s+/);
+      return ((p[0]||'')[0] + (p[1]||'')[0] || '?').toUpperCase();
+    }
+
+    function renderComment(data, prepend) {
+      if (!data || !data.name || !data.message) return;
+      commentCount++;
+      commentTotalEl.innerText = commentCount;
+      commentEmptyEl.style.display = 'none';
+
+      var item = document.createElement('div');
+      item.className = 'comment-item';
+      var badge = (data.attendance === 'berhalangan')
+        ? '<span class="c-badge berhalangan"><i class="fa-solid fa-circle-xmark"></i> Berhalangan</span>'
+        : '<span class="c-badge hadir"><i class="fa-solid fa-circle-check"></i> Hadir</span>';
+      item.innerHTML =
+        '<div class="c-head">' +
+          '<div class="c-avatar">' + escapeHTML(initials(data.name)) + '</div>' +
+          '<div style="min-width:0;">' +
+            '<div class="c-name">' + escapeHTML(data.name) + '</div>' +
+            '<div class="c-time">' + timeAgo(data.time || Date.now()) + '</div>' +
+          '</div>' + badge +
+        '</div>' +
+        '<div class="c-text">' + escapeHTML(data.message) + '</div>';
+
+      if (prepend) commentListEl.insertBefore(item, commentListEl.firstChild);
+      else commentListEl.appendChild(item);
+    }
+
+    // Muat ucapan yang sudah ada
+    if (LOCAL_MODE) {
+      try {
+        var saved = JSON.parse(localStorage.getItem('ucapan-raka') || '[]');
+        saved.sort(function(a,b){ return (b.time||0)-(a.time||0); });
+        saved.forEach(function(d){ renderComment(d, false); });
+      } catch(e) {}
+    } else {
+      commentsDB.ref('comments').limitToLast(100).on('child_added', function(snap) {
+        renderComment(snap.val(), true);
+      }, function(err) {
+        console.warn('Gagal memuat ucapan:', err);
+      });
+    }
+
+    // Kirim ucapan baru
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nameEl = document.getElementById('commentName');
+      var msgEl  = document.getElementById('commentMessage');
+      var attEl  = document.getElementById('commentAttendance');
+      var btn    = document.getElementById('btn-comment');
+
+      var name = nameEl.value.trim().slice(0, 50);
+      var msg  = msgEl.value.trim().slice(0, 500);
+      if (!name || !msg) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+
+      var data = { name: name, message: msg, attendance: attEl.value, time: Date.now() };
+
+      function finish(ok) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Ucapan';
+        showToast(ok ? 'Jazakallahu khairan atas doanya' : 'Gagal mengirim, coba lagi');
+        if (ok) msgEl.value = '';
+      }
+
+      if (LOCAL_MODE) {
+        try {
+          var arr = JSON.parse(localStorage.getItem('ucapan-raka') || '[]');
+          arr.push(data);
+          localStorage.setItem('ucapan-raka', JSON.stringify(arr));
+          renderComment(data, true);
+          finish(true);
+        } catch(err) { finish(false); }
+      } else {
+        commentsDB.ref('comments').push(data)
+          .then(function(){ finish(true); })
+          .catch(function(){ finish(false); });
+      }
+    });
+
+    // Isi otomatis nama tamu dari link undangan (?to=Nama%20Tamu)
+    var prefill = new URLSearchParams(window.location.search).get('to');
+    if (prefill) document.getElementById('commentName').value = decodeURIComponent(prefill);
+  </script>
 </body>
-</html>
+  </html>
